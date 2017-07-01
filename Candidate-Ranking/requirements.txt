@@ -1,0 +1,9 @@
+PYYaml==3.12
+click==6.7
+progressbar2==3.12.0
+lxml==3.6.0
+Unidecode==0.4.19
+Flask==0.11.1
+nltk==3.2.1
+
+# you also need to install tensorflow 1.2.0 (or similar)

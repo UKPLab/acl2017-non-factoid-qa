@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA with Attention Visualization</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <link rel="stylesheet" href="static/styles/application.css">
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="static/node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="static/node_modules/zone.js/dist/zone.js"></script>
+    <script src="static/node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="static/systemjs.config.js"></script>
+    <script>
+    System.import('static/js/main.js').catch(function(err){ console.error(err); });
+    </script>
+
+    <script src="static/node_modules/jstat/dist/jstat.min.js"></script>
+    <script src="static/node_modules/jquery/dist/jquery.js"></script>
+    <script src="static/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="static/node_modules/bootstrap-slider/dist/bootstrap-slider.js"></script>
+
+    <script>
+        window['re_rankers'] = {{ re_rankers|safe }};
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">QA with Attention Visualization</a>
+        </div>
+    </div>
+</nav>
+
+<my-app>
+    <div class="container">
+        <div class="loader app-loader"></div>
+    </div>
+</my-app>
+
+</body>
+</html>

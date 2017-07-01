@@ -1,0 +1,9 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET        /                    controllers.Application.index
+GET        /create-index        controllers.Application.createIndex
+GET        /query               controllers.Application.queryIndex(q:String, n:Int ?= 500)
+GET        /write-tsv-dataset   controllers.Application.writeTSVArchive

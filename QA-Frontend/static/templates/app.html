@@ -1,0 +1,206 @@
+<div class="app" [class.background]="viewStates.questionAsked === false">
+    <div [class.center]="viewStates.questionAsked === false" id="SearchBox">
+        <div>
+            <div class="input-group">
+                <input class="form-control" #questionInput [(ngModel)]="data.question"
+                       placeholder="Does renters insurance cover water damage?"
+                       (keyup.enter)="ask(data.question)"
+                       (focusout)="viewStates.showFakeInput = !!data.result"
+                       [hidden]="viewStates.showFakeInput">
+                <div class="input-fake" [hidden]="!viewStates.showFakeInput" (click)="focusInput()">
+                    <div *ngIf="data.result">
+                        <weighted-text [tokens]="data.result.question.tokens"
+                                       [weights]="viewStates.visibleQuestionWeights"
+                                       [attentionOptions]="viewStates.attention"></weighted-text>
+                    </div>
+                </div>
+                <div class="dropdown input-group-addon">
+                    <button class="btn btn-sm dropdown-toggle" type="button"
+                            data-toggle="dropdown">
+                        {{ data.selectedReRanker.label }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let reRanker of data.reRankers">
+                            <a role="button" (click)="data.selectedReRanker = reRanker">
+                                {{ reRanker.label }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a role="button" class="input-group-addon" id="SearchButton" (click)="ask(data.question)">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="AttentionSettings" *ngIf="(!!data.result) || viewStates.loading">
+        <div>
+            <div class="row">
+                <div>
+                    <div class="checkbox col-xs-12 col-sm-2 col-md-2">
+                        <label>
+                            <input type="checkbox" [(ngModel)]="viewStates.attention.showTransparency">
+                            Transparency
+                        </label>
+                    </div>
+                    <div class="col col-xs-12 col-sm-5 col-md-5">
+                        <div class="row">
+                            <div class="col col-xs-6">
+                                Sensitivity ({{ viewStates.attention.sensitivity }}):
+                            </div>
+                            <div class="col col-xs-6">
+                                <input
+                                        bsSlider
+                                        data-slider-id='SliderSensitivity'
+                                        [sliderValue]="viewStates.attention.sensitivity"
+                                        (sliderValueChange)="viewStates.attention.sensitivity = $event"
+                                        type="text"
+                                        name="somename"
+                                        data-slider-min="0.1"
+                                        data-slider-max="5"
+                                        data-slider-step="0.01"
+                                        data-slider-value="0.5"
+                                        data-slider-tooltip="hide"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xs-12 col-sm-5 col-md-5">
+                        <div class="col col-xs-6">
+                            Threshold ({{ viewStates.attention.threshold }}):
+                        </div>
+                        <div class="col col-xs-6">
+                            <input
+                                    bsSlider
+                                    data-slider-id='SliderThreshold'
+                                    [sliderValue]="viewStates.attention.threshold"
+                                    (sliderValueChange)="viewStates.attention.threshold = $event"
+                                    type="text"
+                                    name="somename"
+                                    data-slider-min="-4"
+                                    data-slider-max="4"
+                                    data-slider-step="0.01"
+                                    data-slider-value="1"
+                                    data-slider-tooltip="hide"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="answers container" *ngIf="viewStates.questionAsked" [class.blurred]="viewStates.showComparison">
+        <div class="loader" *ngIf="viewStates.loading"></div>
+        <div class="alert alert-warning" *ngIf="!viewStates.loading && data.errorMessage">
+            {{ data.errorMessage }}
+        </div>
+        <div *ngIf="!viewStates.loading && data.result != null">
+            <div class="alert alert-warning" *ngIf="!viewStates.loading && data.result.answers.length == 0">
+                No answers found!
+            </div>
+            <div *ngIf="!viewStates.loading && data.result.answers.length > 0">
+                <div class="selected-answer">
+                    <h1><span>Selected Answer</span></h1>
+                    <div class="answer" (mouseover)="viewStates.visibleQuestionWeights=data.result.answers[0].questionWeights">
+                        <weighted-text [tokens]="data.result.answers[0].tokens"
+                                       [weights]="data.result.answers[0].weights"
+                                       [attentionOptions]="viewStates.attention"></weighted-text>
+
+                        <div class="actions">
+                            <div class="dropdown">
+                                <button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                    Compare weights...
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li *ngFor="let reRanker of data.reRankers">
+                                        <a role="button" (click)="compare(data.result.answers[0], reRanker.label)"
+                                           *ngIf="reRanker.label != data.usedReranker">
+                                            {{ reRanker.label }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="other-answers">
+                    <h1><span>Other Top-Ranked Candidates</span></h1>
+                    <div *ngFor="let answer of data.result.answers; let i = index">
+                        <div class="answer" *ngIf="i > 0" (mouseover)="viewStates.visibleQuestionWeights=answer.questionWeights">
+                            <weighted-text [tokens]="data.result.answers[i].tokens"
+                                           [weights]="data.result.answers[i].weights"
+                                           [attentionOptions]="viewStates.attention"></weighted-text>
+
+                            <div class="actions">
+                                <div class="dropdown">
+                                    <button class="btn btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Compare weights...
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li *ngFor="let reRanker of data.reRankers">
+                                            <a role="button" (click)="compare(answer, reRanker.label)"
+                                               *ngIf="reRanker.label != data.usedReranker">
+                                                {{ reRanker.label }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ComparisonWindow" *ngIf="viewStates.showComparison">
+    <div class="container">
+        <h1>
+            <span>
+                    Weight Comparison
+            </span>
+            <span class="close-button">
+                <a role="button" class="btn btn-primary btn-xs" (click)="viewStates.showComparison = false">
+                    &times; Close
+                </a>
+            </span>
+        </h1>
+        <div class="loader" *ngIf="viewStates.loadingComparison"></div>
+        <div class="row" *ngIf="!viewStates.loadingComparison">
+            <div class="col col-xs-6">
+                <h4>{{ data.comparison.a.reranker }}</h4>
+                <div class="question">
+                    <weighted-text [tokens]="data.comparison.a.question.tokens"
+                                   [weights]="data.comparison.a.answer.questionWeights"
+                                   [attentionOptions]="viewStates.attention"></weighted-text>
+                </div>
+                <div class="answer">
+                    <weighted-text [tokens]="data.comparison.a.answer.tokens"
+                                   [weights]="data.comparison.a.answer.weights"
+                                   [attentionOptions]="viewStates.attention"></weighted-text>
+                </div>
+            </div>
+            <div class="col col-xs-6">
+                <h4>{{ data.comparison.b.reranker }}</h4>
+                <div class="question">
+                    <weighted-text [tokens]="data.comparison.b.question.tokens"
+                                   [weights]="data.comparison.b.answer.questionWeights"
+                                   [attentionOptions]="viewStates.attention"></weighted-text>
+                </div>
+                <div class="answer">
+                    <weighted-text [tokens]="data.comparison.b.answer.tokens"
+                                   [weights]="data.comparison.b.answer.weights"
+                                   [attentionOptions]="viewStates.attention"></weighted-text>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

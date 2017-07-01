@@ -1,0 +1,61 @@
+@import "../variables";
+@import "mixins";
+
+.modal-dialog.custom {
+  .modal-content {
+    @include vendor-prefix(box-shadow, $flatShadowGlow);
+
+    .modal-header {
+      background-color: $colorPrimary;
+
+      h4 {
+        color: $colorPrimaryWhite;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    .modal-body {
+
+    }
+
+    .modal-footer {
+      padding-top: 0;
+    }
+  }
+
+  &.small-dialog {
+    width: 400px;
+
+    .modal-content .modal-footer {
+      border: none;
+    }
+  }
+
+  &.centered {
+    .modal-content {
+      .modal-header, .modal-footer {
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+.loader {
+  border: 4px solid $colorLightGray;
+  border-top: 4px solid $colorRed;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

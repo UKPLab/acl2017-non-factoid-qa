@@ -1,0 +1,36 @@
+@import "../variables";
+
+.blurred {
+  -webkit-filter: blur(6px);
+  filter: blur(6px);
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.color-gray {
+  color: $colorGray;
+}
+
+.btn-primary-dark {
+  background-color: $colorPrimaryDark;
+  color: $colorPrimaryWhite;
+
+  &:hover {
+    color: $colorWhite;
+  }
+
+  &:active {
+    color: $colorPrimaryWhite;
+  }
+
+  &:focus {
+    color: $colorPrimaryWhite;
+  }
+}
+
+.readonly {
+  opacity: 0.6;
+  pointer-events: none;
+}

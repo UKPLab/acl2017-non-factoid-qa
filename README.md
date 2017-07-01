@@ -1,6 +1,7 @@
 # End-to-End Non-Factoid Question Answering with an Interactive Visualization of Neural Attention Weights
 
-We are currently preparing the source code and the documentation for this project. It will be available by late May.
+This project contains multiple components that, together, build an end-to-end question answering system. 
+A special emphasis lies on the visualization and interactive comparison of neural attention weights. 
 
 Please use the following citation:
 
@@ -31,3 +32,16 @@ Don't hesitate to send us an e-mail or report an issue, if something is broken (
 
 > This repository contains experimental software and is published for the sole purpose of giving additional background details on the respective publication. 
 
+
+## Project structure
+
+This repository contains the three sub-projects as described in the related paper:
+
+  - __Candidate-Retrieval:__ Indexes all answers of a data source and allows to find answers with lexical overlap to a question
+  - __Candidate-Ranking:__ Contains a framework to train neural network models for answer-selection. Contains a webservice that allows to re-rank answers in regard to their relevance to a given question. 
+  - __QA-Frontend:__ The webfrontend that allows the user to ask questions and retrieve answers. All results will contain neural attention weights which researchers can view, inspect, and compare.
+
+Each individual project has its own installation instructions in separate readme files. It is also possible to install each service on a separate machine, because the services communicate over HTTP. 
+
+To setup the project, it makes sense to first install and run the Candidate-Retrieval application, afterwards setup and train a simple neural network with the Candidate-Ranking, and finally install the QA-Frontend to pull everything together.
+  

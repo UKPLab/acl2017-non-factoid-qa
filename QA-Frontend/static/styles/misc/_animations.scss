@@ -1,0 +1,13 @@
+@import "mixins";
+
+.transition-all {
+  @include vendor-prefix(transition, 0.1s linear all);
+}
+
+.animation-show-hide {
+  @extend .transition-all;
+
+  &.ng-hide {
+    opacity: 0;
+  }
+}

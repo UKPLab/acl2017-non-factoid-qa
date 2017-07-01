@@ -1,0 +1,46 @@
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+
+//
+// APPLICATION Variables
+// --------------------------------------------------
+
+$colorPrimary:          #204d74;
+$colorPrimaryLight:     lighten($colorPrimary, 6%);
+$colorPrimaryWhiteHalf: lighten($colorPrimary, 50%);
+$colorPrimaryWhite:     lighten($colorPrimary, 60%);
+$colorPrimaryDark:      darken($colorPrimary, 4%);
+
+$colorGray:             #b5b5b5;
+$colorGrayDark:         #525252;
+$colorLightGray:        #dedede;
+$colorLighterGray:      #f3f3f3;
+
+$colorWhite:            #ffffff;
+$colorYellow:           #f3ec2f;
+$colorRed:              #CD6060;
+$colorRedDarker:        darken($colorRed, 5%);
+
+
+$flatShadowGlow:        0 0px 22px rgba(0, 0, 0, 0.25);
+$borderRadiusMini:      2px;
+
+//
+// BOOTSTRAP Variables
+// --------------------------------------------------
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$gray-darker:            darken($gray-dark, 10%);
+$gray-dark:              $colorGrayDark;
+$gray:                   $colorGray;
+$gray-light:             $colorLightGray;
+$gray-lighter:           $colorLightGray;
+
+$brand-primary:           $colorPrimary;
+//$brand-success:         #5cb85c;
+//$brand-info:            #5bc0de;
+//$brand-warning:         #f0ad4e;
+$brand-danger:          $colorRed;

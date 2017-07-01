@@ -1,0 +1,41 @@
+# Debug mode enables autoreloading. When using this application with public access, please consider using a WSGI server
+debug: false
+
+# The port the cherrypy webserver will listen to
+port: 5000
+
+# If the webserver should be publicly available: 0.0.0.0, otherwise 127.0.0.1
+host: 0.0.0.0
+
+# The maximum wait time until we consider a request to candidate retrieval and candidate ranking as timed-out
+service_timeout: 30
+
+# The URL of the candidate retrieval API
+candidate_retrieval_url: http://localhost:9000
+
+# The number of candidates to fetch from the candidate retrieval service
+n_candidates: 500
+
+# The different candidate ranking services. It is possible to register multiple answer services to enable the
+# side-by-side comparison of multiple approaches
+re_rankers:
+  -
+    label: Attentive Pooling
+    url: http://server-url:5001
+  -
+    label: Other Approach
+    url: http://server-url:5002
+
+# The number of answers that should be returned to the user
+n_results: 10
+
+# Authentication settings
+authentication:
+  # If set to true, the application will be password protected
+  force_all: false
+
+  # The username
+  username: web-username
+
+  # The password
+  password: web-password

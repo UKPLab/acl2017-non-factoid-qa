@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Copyright 2016
+Ubiquitous Knowledge Processing (UKP) Lab
+Technische Universität Darmstadt
+
+-------------------------------------------------------------------------------
+Third party legal information
+
+We use the image "J8Y2RBV4WF" from StockSnap (User: "Freestocks.org") in our 
+QA-Frontend. https://stocksnap.io/photo/J8Y2RBV4WF
+It is licensed under "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication".

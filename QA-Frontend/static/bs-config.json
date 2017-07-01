@@ -1,0 +1,8 @@
+{
+  "server": {
+    "baseDir": "js",
+    "routes": {
+      "/node_modules": "static/node_modules"
+    }
+  }
+}

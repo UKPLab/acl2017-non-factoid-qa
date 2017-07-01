@@ -1,0 +1,126 @@
+# This is a detailed description of the YAML configuration files.
+
+# First, we define which data module, model module, training module and evaluation module to use in this experiment.
+# We offer various choices them:
+#    - data-module:
+#       * experiment.qa.data.insuranceqa.v1
+#       * experiment.qa.data.insuranceqa.v2
+#       * experiment.qa.data.stackexchange.tsv (stackexchange tsv files can be created by our candidate retrieval)
+#    - model-module:
+#       * experiment.qa.model.embeddings
+#       * experiment.qa.model.bilstm
+#       * experiment.qa.model.ap_bilstm
+#       * experiment.qa.model.word_importance_bilstm
+#    - training-module:
+#       * experiment.qa.train.no_training (skips the training, useful for embeddings_module with pretrained embeddings)
+#       * experiment.qa.train.training (a simple batched training procedure)
+#       * experiment.qa.train.training_dynamic (the more sophisticated training procedure as used by Tan et al.)
+#    - evaluation-module:
+#       * experiment.qa.evaluation.evaluation
+
+data-module: experiment.qa.data.insuranceqa.v2
+model-module: experiment.qa.model.word_importance_bilstm
+training-module: experiment.qa.train.training_dynamic
+evaluation-module: experiment.qa.evaluation.evaluation
+
+
+# All components can log messages during execution. Therefore, we have a separate configuration section to configure
+# this functionality.
+logger:
+  # The log-level as described in https://docs.python.org/2/library/logging.html#logging-levels
+  level: DEBUG
+
+  # Optionally we can define a log path. If set to a value, the logger will also print to this file.
+  # path: <path/to/log>
+
+
+# The global section defines some configuration parameters that can be accessed by all modules.
+global:
+  # The maximum question and answer lengths. Shorter text will be zero-padded.
+  question_length: 56
+  answer_length: 200
+
+  # Dimensionality of the word embeddings. It is very important to set this to the correct value!
+  embedding_size: 100
+
+
+# The data section describes all the parameters for the data module
+data:
+
+  # Lowercases all tokens in the dataset
+  lowercased: true
+
+  # If set to true, maps all OOV tokens to a single OOV vectors. Otherwise a random value will be created for each
+  # individual OOV token
+  map_oov: true
+
+  # If set to true, all numbers will be mapped to a special number token
+  map_numbers: false
+
+  # Path of the pre-trained word embeddings. It is very important to set global.embedding_size accordingly!
+   embeddings_path: path/to/glove.6B/glove.6B.100d.txt
+
+  # Path of the insuranceQA dataset (as downloaded from github). This will be required for both, v1 and v2 datasets.
+  insuranceqa: path/to/insuranceQA
+
+  # Path of the stackexchange TSV dataset as created by the candidate retrieval project
+  #stackexchange: <path/to/stackexchange>
+
+
+# The model section defines all hyperparameters of the configured model
+model:
+  # Defines the cell size of each LSTM (each direction) for all our BiLSTM models
+  lstm_cell_size: 141
+
+  # Sets the margin for the max-margin loss
+  margin: 0.2
+
+  # If set to true, the word embeddings will be updated during training
+  trainable_embeddings: false
+
+
+# The training section defines all values and parameters for the training process
+training:
+  # The save folder will be created and used to store checkpoint files
+  save_folder: <path/to/checkpoint/folder>
+
+  # The number of max. epochs to train
+  epochs: 100
+
+  # Early stopping
+  early_stopping_patience: 9
+
+  # Dropout for all models during training
+  dropout: 0.3
+
+  # The optimizer. We offer adam, adadelta, sgd
+  optimizer: adam
+
+  # The initial learning rate for optimization
+  initial_learning_rate: 0.0004
+
+  # If set to true, we will use a decayed learning rate: (initial_learning_rate / <n-epoch>)
+  dynamic_learning_rate: false
+
+  # Our primary scorer. It will be used to determine if some epoch is better than another. We offer: accuracy, mrr, map,
+  # loss
+  scorer: accuracy
+
+  # The following scores will be additionally printed after each epoch (dev only)
+  scorer_print:
+    - map
+    - mrr
+
+  # The number of negative answers which is used by the dynamic training procedure. This is parameter K in Tan et al.
+  # (2016)
+  negative_answers: 50
+
+  # The number of negative answers that should be used to calculate the dev loss. For the best computational performance
+  # use a lower number. Only relevant if the loss us used as scorer or in scorer_print.
+  # negative_answers_valid: 50
+
+  # batchsize during training
+  batchsize: 20
+
+  # batchsize for evaluation
+  batchsize_valid: 200
