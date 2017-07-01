@@ -48,11 +48,15 @@ To setup the project, it makes sense to first install and run the Candidate-Retr
 
 ## Screenshots
 
-It is possible to query any question and inspect the neural attention weights in the question as well as the answer:
+### Answer Ranking
+
+It is possible to query any question text and inspect the resulting neural attention weights in the question as well as the answer.
 
 ![Screenshot](/screenshot.png?raw=true)
 
 
-If multiple candidate ranking instances were launched, it is possible to compare the neural attention weights of both approaches side-by-side within the same window:
+### Side-By-Side Comparison
+
+If multiple candidate ranking instances with different models are running, it is possible to compare the neural attention weights of both approaches side-by-side within the same window.
 
 ![Screenshot](/screenshot-2.png?raw=true)
