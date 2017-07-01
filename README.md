@@ -20,7 +20,6 @@ Please use the following citation:
 
 > **Abstract:** Advanced attention mechanisms are an important part of successful neural network approaches for non-factoid answer selection because they allow the models to focus on few important segments within rather long answer texts. Analyzing attention mechanisms is thus crucial for understanding strengths and weaknesses of particular models. We present an extensible, highly modular service architecture that enables the transformation of neural network models for non-factoid answer selection into fully featured end-to-end question answering systems. The primary objective  of our system is to enable researchers a way to interactively explore and compare attention-based neural networks for answer selection. Our interactive user interface helps researchers to better understand the capabilities of the different approaches and can aid qualitative analyses.
 
-![Screenshot](/screenshot.png?raw=true)
 
 Contact person: Andreas Rücklé
 
@@ -45,5 +44,15 @@ This repository contains the three sub-projects as described in the related pape
 Each individual project has its own installation instructions in separate readme files. It is also possible to install each service on a separate machine, because the services communicate over HTTP. 
 
 To setup the project, it makes sense to first install and run the Candidate-Retrieval application, afterwards setup and train a simple neural network with the Candidate-Ranking, and finally install the QA-Frontend to pull everything together.
-  
+
+
+## Screenshots
+
+It is possible to query any question and inspect the neural attention weights in the question as well as the answer:
+
+![Screenshot](/screenshot.png?raw=true)
+
+
+If multiple candidate ranking instances were launched, it is possible to compare the neural attention weights of both approaches side-by-side within the same window:
+
 ![Screenshot](/screenshot-2.png?raw=true)
