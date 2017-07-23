@@ -15,14 +15,16 @@ StackExchange archives.
 
 ## Setup
 
+You can start the candidate ranking service on your local machine with ```sbt play:run```.
+
+If you want to deploy it to a different machine, you first need to build and package the application:
+
    * Compile the application with ```sbt play:dist``` 
    * A zip archive containing the compiled assets is now available in _target/universal_
    * Unzip the archive on your target machine and edit the configuration in _conf/application.conf_. A description of 
      the relevant options is available in the provided configuration file
    * Start elasticsearch
-   * run ```bin/candidate-retrieval``` to start the application
-
-Alternatively, you can also start the candidate ranking service locally with ```sbt play:run``` instead of the above.
+   * run ```bin/candidate-retrieval``` (within the unzipped archive) to start the application
 
 
 ## Usage

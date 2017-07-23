@@ -46,6 +46,11 @@ Each individual project has its own installation instructions in separate readme
 To setup the project, it makes sense to first install and run the Candidate-Retrieval application, afterwards setup and train a simple neural network with the Candidate-Ranking, and finally install the QA-Frontend to pull everything together.
 
 
+## API Documentation
+
+QA-Frontend uses the Candidate-Retrieval and Candidate-Ranking services to find and rank relevant answers. Both services provide a public HTTP REST APIs, which are documented in ```API.md```. Researchers can easily substitute individual service implementations with their own approaches.
+
+
 ## Screenshots
 
 ### Answer Ranking
