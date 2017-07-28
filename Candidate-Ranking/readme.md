@@ -24,7 +24,8 @@ least from ```experiment.Model```. We bundle the application with four different
  
    - __Embeddings:__ The most simple model, which learns the representation by averaging over all word embeddings
    - __BiLSTM:__ An LSTM model with 1-max pooling to learn the representation
-   - __APBiLSTM:__ A model that uses Attentive Pooling with LSTM as described by Dos Santos et al. (2016).
+   - __APBiLSTM:__ A model that uses Attentive Pooling with LSTM (Dos Santos et al., 2016).
+   - __LW-BiLSTM:__ Uses separate BiLSTMs to determine the importance of segments in the input (Rücklé & Gurevych, 2017) 
    - __WordImportanceBiLSTM:__ A simple extension of BiLSTM that learns a weight for each input word. This allows it to
      ignore stopwords and put a higher emphasis on more important words.
 
@@ -67,6 +68,7 @@ __Important__: We use a fallback config file named _default_config.yaml_. Do not
    - Install Tensorflow 1.2 (or similar)
    - Run ```pip install -r requirements.txt``` to install all other dependencies 
    - We use NLTK for tokenization. You may need to download the package "punkt"
+     - `python -m nltk.downloader punkt`
 
    
 ## Running the Application
@@ -81,6 +83,9 @@ __Important__: We use a fallback config file named _default_config.yaml_. Do not
 
 ## References
 
+   - Andreas Rücklé and Iryna Gurevych. 2017. Representation Learning for Answer Selection with LSTM-Based 
+   Importance Weighting. In Proceedings of the 12th International Conference on Computational Semantics (IWCS 2017).
+   (to appear).
    - Cicero Dos Santos, Ming Tan, Bing Xiang, and Bowen Zhou. 2016. Attentive Pooling Networks. arXiv preprint 
    https://arxiv.org/abs/1602.03609.
    - Ming Tan, Cicero Dos Santos, Bing Xiang, and Bowen Zhou. 2016. Improved representation learning for question answer
