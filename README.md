@@ -10,11 +10,13 @@ Please use the following citation:
   title = {End-to-End Non-Factoid Question Answering with an Interactive Visualization of Neural Attention Weights},
   author = {R{\"u}ckl{\'e}, Andreas and Gurevych, Iryna},
   publisher = {Association for Computational Linguistics},
-  booktitle = {Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (ACL 2017)},
-  pages = {(to appear)},
+  booktitle = {Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics-System Demonstrations (ACL 2017)},
+  pages = {19--24},
   month = aug,
   year = {2017},
-  location = {Vancouver, Canada}
+  location = {Vancouver, Canada},
+  doi = "10.18653/v1/P17-4004",
+  url = "http://aclweb.org/anthology/P17-4004"
 }
 ```
 
