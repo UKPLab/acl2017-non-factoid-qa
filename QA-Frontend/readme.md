@@ -18,7 +18,9 @@ and  frameworks. Before starting the application, those libraries and dependenci
   * Run ```pip install requirements.txt``` to install all required python packages
   * Install [NodeJS](https://nodejs.org)
   * cd to the folder _static_ fetch all frontend dependencies using ```npm install```
-  * Run ```npm compile``` to compile typescript and sass files to javascript and css
+    * This should automatically compile all required .js and .css files
+    * However, if no output files were generated you might need to install typescript globally: ```npm install typescript -g```
+    * You can also re-run the compile commands individually: ```npm run tsc``` and ```npm run sass```
 
 
 ## Running the Application

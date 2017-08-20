@@ -38,7 +38,7 @@ export class QAService {
         return body || null;
     }
 
-    private handleError(error: Response) {
+    private handleError(error: Response, caught: Observable<any>): any {
         throw new Error(error.text());
     }
 }

@@ -1,28 +1,17 @@
 {
-  "name": "QA-Frontend",
+  "name": "qa-frontend",
   "version": "1.0.0",
-  "description": "QA-Frontend",
+  "description": "QA Frontend, based on the angular QuickStart",
   "scripts": {
-    "build": "tsc -p src/",
-    "build:watch": "tsc -p src/ -w",
-    "build:e2e": "tsc -p e2e/",
-    "serve": "lite-server -c=bs-config.json",
-    "serve:e2e": "lite-server -c=bs-config.e2e.json",
-    "prestart": "npm run build",
-    "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
-    "pree2e": "npm run build:e2e",
-    "e2e": "concurrently \"npm run serve:e2e\" \"npm run protractor\" --kill-others --success first",
-    "preprotractor": "webdriver-manager update",
-    "protractor": "protractor protractor.config.js",
-    "pretest": "npm run build",
-    "test": "concurrently \"npm run build:watch\" \"karma start karma.conf.js\"",
-    "pretest:once": "npm run build",
-    "test:once": "karma start karma.conf.js --single-run",
-    "lint": "tslint ./src/**/*.ts -t verbose"
+    "install": "concurrently \"npm run tsc\" \"npm run sass\"",
+    "tsc": "tsc -p ./js",
+    "tsc:watch": "tsc -p ./js -w",
+    "sass": "node-sass --include-path styles styles/application.scss styles/application.css",
+    "lint": "tslint ./js/**/*.ts -t verbose"
   },
   "keywords": [],
   "author": "",
-  "license": "SEE LICENSE IN NOTICE.TXT",
+  "license": "Apache-2.0",
   "dependencies": {
     "@angular/common": "~2.4.0",
     "@angular/compiler": "~2.4.0",
@@ -33,19 +22,22 @@
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@angular/router": "~3.4.0",
     "angular-in-memory-web-api": "~0.2.4",
-    "bootstrap-sass": "3.3.6",
+    "bootstrap-sass": "3.3.7",
     "bootstrap-slider": "^9.7.2",
+    "concurrently": "^3.5.0",
     "core-js": "^2.4.1",
     "jquery": "3.1.1",
     "jstat": "1.5.3",
-    "rxjs": "5.0.1",
+    "rxjs": "5.4.2",
     "systemjs": "0.19.40",
+    "tsc": "^1.20150623.0",
+    "typescript": "^2.4.2",
     "zone.js": "^0.7.4"
   },
   "devDependencies": {
     "concurrently": "^3.1.0",
     "lite-server": "^2.2.2",
-    "typescript": "~2.0.10",
+    "typescript": "~2.4.2",
     "canonical-path": "0.0.2",
     "tslint": "^3.15.1",
     "lodash": "^4.16.4",
@@ -61,7 +53,7 @@
     "@types/jasmine": "^2.5.36",
     "jstat": "1.5.3",
     "jquery": "3.1.1",
-    "bootstrap-sass": "3.3.6"
+    "bootstrap-sass": "3.3.7"
   },
   "repository": {}
 }
