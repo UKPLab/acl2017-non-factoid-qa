@@ -58,7 +58,7 @@ data:
   map_numbers: false
 
   # Path of the pre-trained word embeddings. It is very important to set global.embedding_size accordingly!
-   embeddings_path: path/to/glove.6B/glove.6B.100d.txt
+  embeddings_path: path/to/glove.6B/glove.6B.100d.txt
 
   # Path of the insuranceQA dataset (as downloaded from github). This will be required for both, v1 and v2 datasets.
   insuranceqa: path/to/insuranceQA
