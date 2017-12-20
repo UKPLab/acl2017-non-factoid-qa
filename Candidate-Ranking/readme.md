@@ -69,7 +69,7 @@ __Important__: We use a fallback config file named _default_config.yaml_. Do not
    - Run ```pip install -r requirements.txt``` to install all other dependencies 
    - We use NLTK for tokenization. You may need to download the package "punkt"
      - `python -m nltk.downloader punkt`
-
+   - Download word embeddings from http://nlp.stanford.edu/data/glove.6B.zip
    
 ## Running the Application
 
