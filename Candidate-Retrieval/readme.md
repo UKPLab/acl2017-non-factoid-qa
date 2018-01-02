@@ -25,6 +25,7 @@ If you want to deploy it to a different machine, you first need to build and pac
      the relevant options is available in the provided configuration file
    * Start elasticsearch
    * run ```bin/candidate-retrieval``` (within the unzipped archive) to start the application
+      * For some platforms it might be required to run ```bin/candidate-retrieval -J-Dfile.encoding=UTF8``` instead. See [Issue #5](https://github.com/UKPLab/acl2017-non-factoid-qa/issues/5)
 
 
 ## Usage
