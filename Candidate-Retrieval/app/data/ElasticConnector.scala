@@ -3,17 +3,21 @@ package data
 import java.net.InetAddress
 
 import org.elasticsearch.common.settings.Settings
-import org.elasticsearch.common.transport.InetSocketTransportAddress
+import org.elasticsearch.common.transport.TransportAddress
 import org.elasticsearch.index.IndexNotFoundException
 import org.elasticsearch.index.query.QueryBuilders
 import org.elasticsearch.transport.client.PreBuiltTransportClient
+import org.elasticsearch.common.xcontent.{XContentBuilder, XContentFactory, XContentType}
 import play.api.libs.json._
 import readers.TextItem
 
 class ElasticConnector(host: String, port: Int, indexName: String) {
 
-  val client = new PreBuiltTransportClient(Settings.EMPTY)
-    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port))
+  val settings = Settings.builder()
+    .put("cluster.name", "elasticsearch").build()
+
+  val client = new PreBuiltTransportClient(settings)
+    .addTransportAddress(new TransportAddress(InetAddress.getByName(host), port))
 
 
   def createIndex(deleteOldIndex: Boolean): Unit = {
@@ -25,9 +29,8 @@ class ElasticConnector(host: String, port: Int, indexName: String) {
       }
     }
 
-    val r = this.client.admin.indices.prepareCreate(indexName).addMapping("answer", Mapping.answersMapping)
-    r.get
-    ()
+    val r = this.client.admin.indices.prepareCreate(indexName).addMapping("answer", Mapping.answersMapping, XContentType.JSON)
+    r.get()
   }
 
   def queryAnswers(query: String, count: Integer): Seq[TextItem] = {
@@ -38,7 +41,7 @@ class ElasticConnector(host: String, port: Int, indexName: String) {
       .execute
       .actionGet
 
-    response.getHits.hits().map { hit =>
+    response.getHits().getHits().map { hit =>
       Json.fromJson[TextItem](Json.parse(hit.getSourceAsString)).asOpt
     }.filter(_.isDefined).map(_.get)
   }
@@ -47,7 +50,7 @@ class ElasticConnector(host: String, port: Int, indexName: String) {
     val bulkRequest = client.prepareBulk
     answers.foreach { answer =>
       val answerJson = Json.toJson(answer).toString()
-      bulkRequest.add(client.prepareIndex(this.indexName, "answer", answer.id).setSource(answerJson))
+      bulkRequest.add(client.prepareIndex(this.indexName, "answer", answer.id).setSource(answerJson, XContentType.JSON))
     }
     val response = bulkRequest.get
     if (response.hasFailures) {

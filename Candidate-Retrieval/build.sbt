@@ -20,7 +20,7 @@ val jackson2Version = "2.7.4"
 
 libraryDependencies ++= Seq(
   "com.google.guava" % "guava" % "20.0",
-  "org.elasticsearch.client" % "transport" % "5.1.1",
+  "org.elasticsearch.client" % "transport" % "6.2.4",
   "com.fasterxml.jackson.core" % "jackson-core" % jackson2Version,
   "com.fasterxml.jackson.core" % "jackson-databind" % jackson2Version,
   "com.fasterxml.jackson.core" % "jackson-annotations" % jackson2Version,
